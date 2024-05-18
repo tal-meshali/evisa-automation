@@ -1,0 +1,287 @@
+{
+  "PUT": {
+    "CONSTANT": {
+      "refCategoriesVisa": {
+        "id": 28,
+        "code": "OR.1",
+        "libelle": "Tourism",
+        "lang": "en",
+        "statut": "Active",
+        "refsListePiecesJointes": [],
+        "refsTypeVisa": [
+          {
+            "id": 2,
+            "code": "C",
+            "libelle": "Courte validité  (en anglais )",
+            "lang": "en",
+            "statut": null,
+            "refsCategoriesVisa": null
+          },
+          {
+            "id": 5,
+            "code": "D",
+            "libelle": "Longue validité  (en anglais )",
+            "lang": "en",
+            "statut": null,
+            "refsCategoriesVisa": null
+          },
+          {
+            "id": 8,
+            "code": "T",
+            "libelle": "Transit  (en anglais )",
+            "lang": "en",
+            "statut": null,
+            "refsCategoriesVisa": null
+          }
+        ],
+        "active": true,
+        "ordre": 1,
+        "activeEvisaEvent": null
+      },
+      "refInfoBeneficiairesVisa": {
+        "nomPrenomMere": null,
+        "nomPrenomPere": null,
+        "numPieceIdentite": null,
+        "nom": null,
+        "prenom": null,
+        "lieuNaissance": null,
+        "sex": null,
+        "telephone": "+972548008129",
+        "mail": "moredite1@gmail.com",
+        "nationaliteActuel": {
+          "id": 615,
+          "code": "ISR",
+          "autorisation": false,
+          "libelle": "ISRAEL",
+          "lang": "en",
+          "statut": null,
+          "refPays": {
+            "id": 516,
+            "libelle": "ISRAEL",
+            "code": "ISR",
+            "lang": "en",
+            "statut": null,
+            "parent": null,
+            "active": true,
+            "refZone": {
+              "id": 178,
+              "nomDeZone": "TEL AVIV",
+              "codeDeZone": "TAV",
+              "statut": null,
+              "active": null,
+              "refPosteConsulaire": {
+                "id": 181,
+                "adressePostale": "ISRAEL",
+                "fax": null,
+                "telephone": "+212611111111",
+                "nomUniteOrg": "TEL AVIV",
+                "uniteOrgType": "TB_POSTE_CONSULAIRE",
+                "statut": null,
+                "active": null
+              }
+            },
+            "localisationType": "TB_PAYS",
+            "typePays": "reconnu",
+            "dateDebutEffet": null,
+            "dateFinEffet": null
+          },
+          "active": true,
+          "eVisa": true,
+          "eVisaGratuit": false,
+          "typePasseportsNonReconu": [
+            {
+              "id": 13,
+              "code": "PSP",
+              "libelle": "Special Passport",
+              "lang": "en",
+              "officiel": null,
+              "statut": null,
+              "active": true,
+              "refsCategorieVisa": [],
+              "ordre": 3
+            },
+            {
+              "id": 18,
+              "code": "POF",
+              "libelle": "Official passport",
+              "lang": "en",
+              "officiel": true,
+              "statut": null,
+              "active": true,
+              "refsCategorieVisa": [],
+              "ordre": 4
+            }
+          ]
+        },
+        "nationaliteOrigine": null,
+        "paysNaissance": null,
+        "refProfession": null,
+        "refSituationFamiliale": null,
+        "refTypePieceIdentite": null,
+        "refsEnfant": null,
+        "refsVisaAnterieur": null,
+        "dateNaissanceTrans": null,
+        "domicileDemandeur": null
+      },
+      "refInfoVoyage": {
+        "dateArrivee": null,
+        "dateSortie": null
+      },
+      "refInfoPasseport": {
+        "dateDelivrance": null,
+        "dateExpiration": null,
+        "numPasseport": null,
+        "identifiantNational": null,
+        "refPaysDelivrance": {
+          "id": 516,
+          "libelle": "ISRAEL",
+          "code": "ISR",
+          "lang": "en",
+          "statut": null,
+          "parent": null,
+          "active": true,
+          "refZone": {
+            "id": 178,
+            "nomDeZone": "TEL AVIV",
+            "codeDeZone": "TAV",
+            "statut": null,
+            "active": null,
+            "refPosteConsulaire": {
+              "id": 181,
+              "adressePostale": "ISRAEL",
+              "fax": null,
+              "telephone": "+212611111111",
+              "nomUniteOrg": "TEL AVIV",
+              "uniteOrgType": "TB_POSTE_CONSULAIRE",
+              "statut": null,
+              "active": null
+            }
+          },
+          "localisationType": "TB_PAYS",
+          "typePays": "reconnu",
+          "dateDebutEffet": null,
+          "dateFinEffet": null
+        },
+        "refTypePasseport": {
+          "id": 9,
+          "code": "POR",
+          "libelle": "Ordinary passport",
+          "lang": "en",
+          "officiel": false,
+          "statut": null,
+          "active": true,
+          "refsCategorieVisa": [],
+          "ordre": 4
+        }
+      },
+      "refVisaAdditionnel": {
+        "refTypeVisaAdditionnel": null,
+        "dateValidite": null,
+        "nbrEntreesDemandees": null,
+        "numVisaAdditionnel": null
+      },
+      "refResidenceHabituelle": {
+        "refPaysResidence": {
+          "id": 516,
+          "libelle": "ISRAEL",
+          "code": "ISR",
+          "lang": "en",
+          "statut": null,
+          "parent": null,
+          "active": true,
+          "refZone": {
+            "id": 178,
+            "nomDeZone": "TEL AVIV",
+            "codeDeZone": "TAV",
+            "statut": null,
+            "active": null,
+            "refPosteConsulaire": {
+              "id": 181,
+              "adressePostale": "ISRAEL",
+              "fax": null,
+              "telephone": "+212611111111",
+              "nomUniteOrg": "TEL AVIV",
+              "uniteOrgType": "TB_POSTE_CONSULAIRE",
+              "statut": null,
+              "active": null
+            }
+          },
+          "localisationType": "TB_PAYS",
+          "typePays": "reconnu",
+          "dateDebutEffet": null,
+          "dateFinEffet": null
+        },
+        "numCarteSejour": null,
+        "dateValidite": null
+      },
+      "refsClauses": [
+        {
+          "id": 13,
+          "code": "clause1",
+          "libelle": "I am traveling for tourism purposes",
+          "lang": "en",
+          "checked": true
+        },
+        {
+          "id": 15,
+          "code": "clause3",
+          "libelle": "I have return ticket",
+          "lang": "en",
+          "checked": true
+        },
+        {
+          "id": 16,
+          "code": "clause4",
+          "libelle": "I have hotel reservation or an invitation",
+          "lang": "en",
+          "checked": true
+        },
+        {
+          "id": 17,
+          "code": "clause5",
+          "libelle": "I have sufficient financial means (70 EUR per day minimum)",
+          "lang": "en",
+          "checked": true
+        },
+        {
+          "id": 18,
+          "code": "clause6",
+          "libelle": "I have a valid passport when leaving Morocco",
+          "lang": "en",
+          "checked": true
+        },
+        {
+          "id": 33,
+          "code": "clause10",
+          "libelle": "I certify the accuracy of the information provided, in case of error my request will be refused",
+          "lang": "en",
+          "checked": true
+        },
+        {
+          "id": 36,
+          "code": "clause11",
+          "libelle": "Any refused request is non-refundable",
+          "lang": "en",
+          "checked": true
+        }
+      ]
+    },
+    "VARIABLES": {
+      "dateNaissance": "birth_date",
+      "refInfoBeneficiairesVisa/dateNaissance": "birth_date/ISO",
+      "refInfoBeneficiairesVisa/lieuNaissance": "birth_place",
+      "refInfoBeneficiairesVisa/prenom": "first_name",
+      "refInfoBeneficiairesVisa/nom": "last_name",
+      "refInfoBeneficiairesVisa/refProfession": "profession",
+      "refInfoPasseport/dateDelivrance": "issue_date/ISO",
+      "refInfoPasseport/dateExpiration": "expiry_date/ISO",
+      "refInfoPasseport/numPasseport": "passport_number",
+      "dateDelivrPass": "issue_date",
+      "dateExpirPass": "expiry_date",
+      "dateArrivee": "arrival_date/ISO",
+      "dateArrivePrevue": "arrival_date",
+      "dateSortie": "departure_date/ISO",
+      "dateSortiePrevue": "departure_date"
+    }
+  }
+}

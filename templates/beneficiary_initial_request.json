@@ -1,0 +1,83 @@
+{
+  "dateNaissance": "2023-05-03T21:00:00.000Z",
+  "refCategorieVisa": {
+    "id": 28,
+    "code": "OR.1",
+    "libelle": "Tourism",
+    "lang": "en",
+    "statut": "Active",
+    "refsListePiecesJointes": [],
+    "refsTypeVisa": [],
+    "active": true,
+    "ordre": 1,
+    "activeEvisaEvent": null
+  },
+  "refNationalite": {
+    "id": 615,
+    "code": "ISR",
+    "autorisation": false,
+    "libelle": "ISRAEL",
+    "lang": "en",
+    "statut": null,
+    "refPays": {
+      "id": 516,
+      "libelle": "ISRAEL",
+      "code": "ISR",
+      "lang": "en",
+      "statut": null,
+      "parent": null,
+      "active": true,
+      "refZone": null,
+      "localisationType": "TB_PAYS",
+      "typePays": "reconnu",
+      "dateDebutEffet": null,
+      "dateFinEffet": null
+    },
+    "active": true,
+    "eVisa": true,
+    "eVisaGratuit": false,
+    "typePasseportsNonReconu": []
+  },
+  "refPaysResidence": {
+    "id": 516,
+    "libelle": "ISRAEL",
+    "code": "ISR",
+    "lang": "en",
+    "statut": null,
+    "parent": null,
+    "active": true,
+    "refZone": {
+      "id": 178,
+      "nomDeZone": "TEL AVIV",
+      "codeDeZone": "TAV",
+      "statut": null,
+      "active": null,
+      "refPosteConsulaire": {
+        "id": 181,
+        "adressePostale": "ISRAEL",
+        "fax": null,
+        "telephone": "+212611111111",
+        "nomUniteOrg": "TEL AVIV",
+        "uniteOrgType": "TB_POSTE_CONSULAIRE",
+        "statut": null,
+        "active": null
+      }
+    },
+    "localisationType": "TB_PAYS",
+    "typePays": "reconnu",
+    "dateDebutEffet": null,
+    "dateFinEffet": null
+  },
+  "refTypePasseport": {
+    "id": 9,
+    "code": "POR",
+    "libelle": "Ordinary passport",
+    "lang": "en",
+    "officiel": false,
+    "statut": null,
+    "active": true,
+    "refsCategorieVisa": [],
+    "ordre": 4
+  },
+  "refVisaAdditionnel": null
+}

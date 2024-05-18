@@ -1,0 +1,18 @@
+{
+  "attachableId": 0,
+  "className": "ma.omnishore.portail.domain.demandeVisa.DemandeVisa",
+  "appName": "PORTAIL-SERVICE",
+  "criteria": "OR.1",
+  "description": "",
+  "category": {
+    "labelCategory": "",
+    "codeCategory": 295,
+    "mandatory": true,
+    "maxSize": 1024,
+    "code": "",
+    "extensions": null
+  },
+  "delivered": false,
+  "uploaded": true,
+  "evisa": true
+}
