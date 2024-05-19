@@ -4,7 +4,6 @@ from visa_requests.stages.strings import (
     StringFieldMatchStage,
     ScannedStringStage,
     GetFirstWordStage,
-    FilterValidWordsOnlyStage
 )
 
 
@@ -25,8 +24,3 @@ class BirthPlacePipeline(Pipeline):
     def __init__(self):
         self.stages = [StringFieldMatchStage(["Place", "of", "Birth"], 3),
                        GetFirstWordStage()]
-
-
-class InitialWordListPipeline(Pipeline):
-    def __init__(self):
-        self.stages = [FilterValidWordsOnlyStage(), ScannedStringStage(should_loop=True)]
