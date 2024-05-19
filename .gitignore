@@ -1,2 +1,8 @@
 .idea/
 venv/
+__pycache__/
+
+*.jpeg
+*.jpg
+*.png
+*.pdf
