@@ -1,13 +1,15 @@
-from visa_requests.information.attribute import Attribute
-from visa_requests.pipelines.dates import ArrivalDatePipeline, DepartureDatePipeline, PassportDatePipeline, ReceiveRequiredDatesPipeline
-from visa_requests.pipelines.strings import SurnamePipeline, GivenNamePipeline, BirthPlacePipeline, InitialWordListPipeline
-from visa_requests.pipelines.passport_number import PassportNumberPipeline
-from visa_requests.pipelines.profession import ReceiveProfessionPipeline
+from ocrequests.api.visa_requests.information.attribute import Attribute
+from ocrequests.api.visa_requests.pipelines.dates import FormatTypes, ArrivalDatePipeline, DepartureDatePipeline, PassportDatePipeline
+from ocrequests.api.visa_requests.pipelines.strings import SurnamePipeline, GivenNamePipeline, BirthPlacePipeline
+from ocrequests.api.visa_requests.pipelines.passport_number import PassportNumberPipeline
+from ocrequests.api.visa_requests.pipelines.general import ReceiveRequiredDatesPipeline, InitialWordListPipeline
+from ocrequests.api.visa_requests.pipelines.profession import ReceiveProfessionPipeline
 from typing import List, Dict
+
 
 class BeneficiaryAttributesFiller:
     def __init__(self):
-        self.birth_date = Attribute(PassportDatePipeline(True),
+        self.birth_date = Attribute(PassportDatePipeline(FormatTypes.ISO),
                                     ["refInfoBeneficiairesVisa", "dateNaissance"])
         self.last_name = Attribute(SurnamePipeline(),
                                    ["refInfoBeneficiairesVisa", "nom"])
@@ -19,21 +21,21 @@ class BeneficiaryAttributesFiller:
                                          ["refInfoPasseport", "numPasseport"])
         self.profession = Attribute(ReceiveProfessionPipeline(),
                                     ["refInfoBeneficiairesVisa", "refProfession"])
-        self.issue_date = (Attribute(PassportDatePipeline(True),
+        self.issue_date = (Attribute(PassportDatePipeline(FormatTypes.ISO),
                                      ["refInfoPasseport", "dateDelivrance"]),
-                           Attribute(PassportDatePipeline(False),
+                           Attribute(PassportDatePipeline(FormatTypes.Regular),
                                      ["dateDelivrPass"]))
-        self.expiry_date = (Attribute(PassportDatePipeline(True),
+        self.expiry_date = (Attribute(PassportDatePipeline(FormatTypes.ISO),
                                       ["refInfoPasseport", "dateExpiration"]),
-                            Attribute(PassportDatePipeline(False),
+                            Attribute(PassportDatePipeline(FormatTypes.Regular),
                                       ["dateExpirPass"]))
-        self.travel_dates = (Attribute(ArrivalDatePipeline(True),
+        self.travel_dates = (Attribute(ArrivalDatePipeline(FormatTypes.ISO),
                                        ["dateArrivee"]),
-                             Attribute(ArrivalDatePipeline(False),
+                             Attribute(ArrivalDatePipeline(FormatTypes.Regular),
                                        ["dateArrivePrevue"]),
-                             Attribute(DepartureDatePipeline(True),
+                             Attribute(DepartureDatePipeline(FormatTypes.ISO),
                                        ["dateSortie"]),
-                             Attribute(DepartureDatePipeline(False),
+                             Attribute(DepartureDatePipeline(FormatTypes.Regular),
                                        ["dateSortiePrevue"]))
         self.dates_pipeline = ReceiveRequiredDatesPipeline()
         self.words_pipeline = InitialWordListPipeline()

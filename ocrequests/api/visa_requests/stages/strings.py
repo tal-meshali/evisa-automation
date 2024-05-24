@@ -1,8 +1,8 @@
 import re
 
-from visa_requests.stages.stage import Stage
+from ..stages.stage import Stage
 from typing import List
-from visa_requests.validators.string_matcher import ProximityChecker
+from ..validators.string_matcher import ProximityChecker
 
 VALID_CHARACTERS_ONLY = r'[a-zA-Z01\s]+'
 

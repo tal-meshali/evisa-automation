@@ -1,7 +1,7 @@
 import re
 
 from collections import Counter
-from visa_requests.stages.stage import Stage
+from ..stages.stage import Stage
 from typing import List
 
 PASSPORT_NUMBER_REGEX = r"\d{8}"

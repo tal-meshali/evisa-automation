@@ -47,7 +47,7 @@ def login(code):
 
 def create_beneficiary(isr_code, trip, token):
     post_beneficiary_url = "https://api.acces-maroc.ma:443/api/api/conditionEvise/recherche/en"
-    with open("../templates/beneficiary_initial_request.json", "r") as f:
+    with open("../../../templates/beneficiary_initial_request.json", "r") as f:
         beneficiary = json.load(f)
     beneficiary["dateNaissance"] = convert_date_to_iso(FIELDS["birth_date"])
     res = requests.post(post_beneficiary_url, headers=get_header(token), json=beneficiary)
@@ -78,7 +78,7 @@ def convert_date_to_iso(date):
 
 def put_info_request(full_req, token):
     header = get_header(token)
-    with open("../templates/beneficiary_update_details.json") as f:
+    with open("../../../templates/beneficiary_update_details.json") as f:
         f = json.load(f)
         req = f["PUT"]["CONSTANT"]
         variable_params = f["PUT"]["VARIABLES"]
@@ -114,7 +114,7 @@ def get_path_to_document(passenger, trip, get_json=False):
 
 
 def upload_document(path, token, change_field):
-    with open('../templates/blob.json', 'r') as f:
+    with open('../../../templates/blob.json', 'r') as f:
         blob = json.load(f)
     for field in change_field.keys():
         if "/" in field:

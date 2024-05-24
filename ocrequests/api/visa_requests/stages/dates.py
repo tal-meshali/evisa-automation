@@ -1,6 +1,6 @@
 import re
 
-from visa_requests.stages.stage import Stage
+from ..stages.stage import Stage
 from datetime import datetime, timedelta
 from typing import List
 

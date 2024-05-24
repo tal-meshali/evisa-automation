@@ -1,4 +1,4 @@
-from visa_requests.pipelines.pipeline import Pipeline
+from ..pipelines.pipeline import Pipeline
 from typing import List, Dict
 
 

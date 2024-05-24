@@ -1,4 +1,4 @@
-from visa_requests.stages.stage import Stage
+from ocrequests.api.visa_requests.stages.stage import Stage
 from datetime import datetime, timedelta
 
 YEAR = 365
