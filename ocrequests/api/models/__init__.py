@@ -1,0 +1,2 @@
+from .passport_details import PassportDetails
+from .portrait_details import PortraitDetails
