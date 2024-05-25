@@ -40,6 +40,11 @@ class ConvertDateToRegularStage(Stage):
         return stage_input.strftime("%d/%m/%Y")
 
 
+class ConvertToBothDateFormsStage(Stage):
+    def run(self, stage_input: datetime):
+        return stage_input.strftime("%d/%m/%Y"), stage_input.isoformat() + ".000Z"
+
+
 class AcquireAllDatesStage(Stage):
     def run(self, stage_input: List[str]):
         return filter(lambda word: re.match(DATE_REGEX, word), stage_input)
