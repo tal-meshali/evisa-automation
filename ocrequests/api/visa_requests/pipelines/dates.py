@@ -9,10 +9,12 @@ class FormatTypes(Enum):
     ISO = 0,
     Regular = 1
     Both = 2
+    NoFormat = 3
 
 
 class BasicDatePipeline(Pipeline, ABC):
-    def __init__(self, _format: FormatTypes = None):
+    def __init__(self, name: str, _format: FormatTypes = None):
+        self.name = name
         if _format == FormatTypes.ISO:
             self.stages.append(ConvertDateToISOStage())
         elif _format == FormatTypes.Regular:

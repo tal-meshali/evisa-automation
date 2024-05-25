@@ -3,4 +3,5 @@ from ..stages.passport_number import PassportNumberOptionsStage, FindMostProbabl
 
 
 class PassportNumberPipeline(Pipeline):
+    name = "passport_number"
     stages = [PassportNumberOptionsStage(), FindMostProbableOptionStage()]
