@@ -13,7 +13,7 @@ class BatchViewSet(viewsets.ModelViewSet):
     serializer_class = BatchSerializer
 
     @action(methods=["POST"], detail="Append a beneficiary to the batch's list")
-    def create_beneficiary(self, request):
+    def create_beneficiary(self, request, pk):
         beneficiary = Beneficiary.objects.create()
         beneficiary.related_batch = self.get_object()
         beneficiary.save()
@@ -22,7 +22,7 @@ class BatchViewSet(viewsets.ModelViewSet):
     @action(
         methods=["GET"], detail="Get all of the beneficiaries attached to the batch"
     )
-    def get_beneficiaries(self, request):
+    def get_beneficiaries(self, request, pk):
         beneficiaries = self.get_object().beneficiary_set.all()
         return Response(
             {"received": [model_to_dict(beneficiary) for beneficiary in beneficiaries]}

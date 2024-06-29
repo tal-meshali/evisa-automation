@@ -8,3 +8,4 @@ class PassportViewSet(BeneficiaryRelatedViewSet):
     queryset = PassportDetails.objects.all()
     serializer_class = PassportSerializer
     # permission_classes = [permissions.IsAuthenticated]
+    lookup_url_kwarg = "passport_id"
