@@ -25,13 +25,19 @@ class ConvertToVisionImageStage(Stage):
 
 class FaceDetectionStage(VisionStage):
     def run(self, stage_input):
-        return stage_input[0], self.client.face_detection(image=stage_input[1], max_results=1).face_annotations[
-            0]  # pylint: disable=no-member
+        return (
+            stage_input[0],
+            self.client.face_detection(
+                image=stage_input[1], max_results=1
+            ).face_annotations[0],
+        )  # pylint: disable=no-member
 
 
 class PassportTextDetectionStage(VisionStage):
     def run(self, stage_input):
-        return self.client.document_text_detection(image=stage_input[1]).full_text_annotation
+        return self.client.document_text_detection(
+            image=stage_input[1]
+        ).full_text_annotation
 
 
 class CropImageStage(Stage):
@@ -41,8 +47,11 @@ class CropImageStage(Stage):
         pil_image = Image.open(image)
         confidence = detection.detection_confidence
         width, height = pil_image.size
-        [[x1, y1], [x2, y2]] = [(vertex.x, vertex.y) for index, vertex in enumerate(detection.bounding_poly.vertices) if
-                                index % 2 == 0]
+        [[x1, y1], [x2, y2]] = [
+            (vertex.x, vertex.y)
+            for index, vertex in enumerate(detection.bounding_poly.vertices)
+            if index % 2 == 0
+        ]
         if x2 - x1 < y2 - y1 and confidence > 0.9:
             addition = height * 0.1
             y1, y2 = max(0, y1 - addition), min(height, y2 + addition)
@@ -57,10 +66,18 @@ class SaveImageValidFormatStage(Stage):
     def run(self, stage_input):
         original_image, cropped_image = stage_input
         buffer = BytesIO()
-        cropped_image.save(fp=buffer, format=original_image.content_type.split('/')[1].upper())
+        cropped_image.save(
+            fp=buffer, format=original_image.content_type.split("/")[1].upper()
+        )
         buffer.seek(0)
-        return InMemoryUploadedFile(buffer, 'ImageField', original_image.name, 'image/jpeg',
-                                            getsizeof(buffer), None)
+        return InMemoryUploadedFile(
+            buffer,
+            "ImageField",
+            original_image.name,
+            "image/jpeg",
+            getsizeof(buffer),
+            None,
+        )
 
 
 class ReceiveWordListStage(Stage):

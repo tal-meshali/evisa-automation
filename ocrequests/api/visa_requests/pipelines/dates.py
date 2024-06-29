@@ -1,12 +1,17 @@
 from ..pipelines.pipeline import Pipeline
-from ..stages.dates import CreateDateStage, AddDaysToDateStage, ConvertDateToISOStage, \
-    ConvertDateToRegularStage, ConvertToBothDateFormsStage
+from ..stages.dates import (
+    CreateDateStage,
+    AddDaysToDateStage,
+    ConvertDateToISOStage,
+    ConvertDateToRegularStage,
+    ConvertToBothDateFormsStage,
+)
 from abc import ABC
 from enum import Enum
 
 
 class FormatTypes(Enum):
-    ISO = 0,
+    ISO = (0,)
     Regular = 1
     Both = 2
     NoFormat = 3

@@ -17,4 +17,6 @@ class FindMostProbableOptionStage(Stage):
         most_common_number = Counter(stage_input).most_common(1)[0]
         if most_common_number[1] == 2:
             return most_common_number[0]
-        return list(filter(lambda passport_num: passport_num[0] in ["2", "3"], stage_input))[0]
+        return list(
+            filter(lambda passport_num: passport_num[0] in ["2", "3"], stage_input)
+        )[0]

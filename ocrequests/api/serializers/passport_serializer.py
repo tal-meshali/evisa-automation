@@ -12,12 +12,18 @@ class PassportSerializer(serializers.Serializer):
     pipeline = PassportDetailsPipeline(client)
 
     def create(self, validated_data):
-        return PassportDetails.objects.create(email_address=validated_data["email_address"],
-                                              passport_image=validated_data["passport_image"],
-                                              **self.pipeline.activate(validated_data["passport_image"]))
+        return PassportDetails.objects.create(
+            email_address=validated_data["email_address"],
+            passport_image=validated_data["passport_image"],
+            **self.pipeline.activate(validated_data["passport_image"])
+        )
 
     def update(self, instance, validated_data):
-        instance.email_address = validated_data.get('email_address', instance.email_address)
-        instance.portrait_image = validated_data.get('portrait_image', instance.portrait_image)
-        instance.created = validated_data.get('created', instance.created)
+        instance.email_address = validated_data.get(
+            "email_address", instance.email_address
+        )
+        instance.portrait_image = validated_data.get(
+            "portrait_image", instance.portrait_image
+        )
+        instance.created = validated_data.get("created", instance.created)
         return instance

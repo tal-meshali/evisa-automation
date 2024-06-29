@@ -12,10 +12,16 @@ class PortraitSerializer(serializers.Serializer):
     pipeline = PortraitImagePipeline(client)
 
     def create(self, validated_data):
-        return PortraitDetails.objects.create(email_address=validated_data["email_address"],
-                                              portrait_image=self.pipeline.activate(validated_data["portrait_image"]))
+        return PortraitDetails.objects.create(
+            email_address=validated_data["email_address"],
+            portrait_image=self.pipeline.activate(validated_data["portrait_image"]),
+        )
 
     def update(self, instance, validated_data):
-        instance.email_address = validated_data.get('email_address', instance.email_address)
-        instance.portrait_image = self.pipeline.activate(validated_data.get('portrait_image', instance.portrait_image))
+        instance.email_address = validated_data.get(
+            "email_address", instance.email_address
+        )
+        instance.portrait_image = self.pipeline.activate(
+            validated_data.get("portrait_image", instance.portrait_image)
+        )
         return instance
