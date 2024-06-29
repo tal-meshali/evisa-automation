@@ -35,7 +35,8 @@ class MultiStagePipeline(Pipeline):
                 self.update(outputs, pipeline, pipeline_input)
         return outputs
 
-    def update(self, update_into: Dict, pipeline: Pipeline, pipeline_input):
+    @staticmethod
+    def update(update_into: Dict, pipeline: Pipeline, pipeline_input):
         pipeline_result = pipeline.activate(pipeline_input)
         if isinstance(pipeline_result, dict):
             update_into.update(**pipeline_result)
