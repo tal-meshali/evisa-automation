@@ -4,6 +4,9 @@ from typing import List
 
 class Stage(ABC):
     should_loop = False
+    error_message: str = (
+        "Failed to locate certain field, try to get a better capture of the document!"
+    )
 
     def __init__(self, should_loop: bool = False):
         self.should_loop = should_loop

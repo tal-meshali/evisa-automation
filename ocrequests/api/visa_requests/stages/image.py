@@ -18,12 +18,16 @@ class VisionStage(Stage, ABC):
 
 
 class ConvertToVisionImageStage(Stage):
+    error_message = "Given file is invalid!"
+
     def run(self, stage_input: InMemoryUploadedFile):
         content = stage_input.read()
         return stage_input, vision.Image(content=content)
 
 
 class FaceDetectionStage(VisionStage):
+    error_message = "No face was detected in the given image!"
+
     def run(self, stage_input):
         return (
             stage_input[0],
@@ -34,6 +38,8 @@ class FaceDetectionStage(VisionStage):
 
 
 class PassportTextDetectionStage(VisionStage):
+    error_message = "No passport data cant be recovered from the given image."
+
     def run(self, stage_input):
         return self.client.document_text_detection(
             image=stage_input[1]
@@ -41,6 +47,11 @@ class PassportTextDetectionStage(VisionStage):
 
 
 class CropImageStage(Stage):
+    error_message = (
+        "Failed to locate a face in the image, "
+        "try to send a clear capture in which the entire face is featured."
+    )
+
     def run(self, stage_input):
         image, detection = stage_input
         image.seek(0)
