@@ -6,5 +6,4 @@ def portrait_image_directory_path(instance, filename):
 
 
 class PortraitDetails(models.Model):
-    email_address = models.EmailField()
     portrait_image = models.ImageField(upload_to=portrait_image_directory_path)

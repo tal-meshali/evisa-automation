@@ -6,7 +6,6 @@ def passport_image_directory_path(instance, filename):
 
 
 class PassportDetails(models.Model):
-    email_address = models.EmailField()
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     birth_place = models.CharField(max_length=10)
