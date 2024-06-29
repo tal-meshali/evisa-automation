@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from ..models import PortraitDetails, Beneficiary
+from ..models import PortraitDetails
+from ..utility.serializer_helpers import add_beneficiary
 from ..visa_requests.pipelines.image import PortraitImagePipeline
 from google.cloud.vision import ImageAnnotatorClient
 
@@ -10,13 +11,11 @@ class PortraitSerializer(serializers.Serializer):
     client = ImageAnnotatorClient()
     pipeline = PortraitImagePipeline(client)
 
+    @add_beneficiary
     def create(self, validated_data):
-        portrait = PortraitDetails.objects.create(
+        return PortraitDetails.objects.create(
             portrait_image=self.pipeline.activate(validated_data["portrait_image"]),
         )
-        portrait.save()
-        Beneficiary.objects.get(pk=validated_data["beneficiary"]).save_item(portrait)
-        return portrait
 
     def update(self, instance, validated_data):
         instance.portrait_image = self.pipeline.activate(
