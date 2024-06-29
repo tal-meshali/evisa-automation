@@ -23,9 +23,14 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 router = routers.DefaultRouter()
-router.register(r"portraits", views.PortraitViewSet)
-router.register(r"passports", views.PassportViewSet)
 router.register(r"batches", views.BatchViewSet)
+router.register(r"beneficiaries", views.BeneficiaryViewSet)
+router.register(
+    r"beneficiaries/(?P<beneficiary_id>[^/.]+)/portraits", views.PortraitViewSet
+)
+router.register(
+    r"beneficiaries/(?P<beneficiary_id>[^/.]+)/passports", views.PassportViewSet
+)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
