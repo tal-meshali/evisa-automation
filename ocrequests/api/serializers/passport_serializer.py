@@ -3,6 +3,7 @@ from ..models import PassportDetails
 from ..visa_requests.pipelines.general import PassportDetailsPipeline
 from google.cloud.vision import ImageAnnotatorClient
 
+
 class PassportSerializer(serializers.Serializer):
     email_address = serializers.EmailField()
     passport_image = serializers.ImageField()

@@ -3,6 +3,7 @@ from ..models import PortraitDetails
 from ..visa_requests.pipelines.image import PortraitImagePipeline
 from google.cloud.vision import ImageAnnotatorClient
 
+
 class PortraitSerializer(serializers.Serializer):
     email_address = serializers.EmailField()
     portrait_image = serializers.ImageField()
