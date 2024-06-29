@@ -3,16 +3,27 @@ from typing import List, Dict
 from abc import ABC
 
 
+class ParsingException(Exception):
+    pass
+
+
 class Pipeline(ABC):
     stages: List[Stage]
+    errors: List[str] = []
     name = None
 
     def activate(self, initial_input):
         if len(self.stages) == 0:
             return initial_input
-        output = self.stages[0].run(initial_input)
-        for stage in self.stages[1:]:
-            output = stage.loop(output) if stage.should_loop else stage.run(output)
+        output = initial_input
+        for stage in self.stages:
+            try:
+                output = stage.loop(output) if stage.should_loop else stage.run(output)
+            except Exception:
+                self.errors.append(stage.error_message)
+                break
+        if len(self.errors) > 0:
+            raise ParsingException(self.errors)
         return output
 
 
@@ -27,12 +38,17 @@ class MultiStagePipeline(Pipeline):
         outputs = {}
         if self.should_duplicate:
             for pipeline in self.pipelines:
-                self.update(outputs, pipeline, pipeline_inputs)
+                try:
+                    self.update(outputs, pipeline, pipeline_inputs)
+                except Exception:
+                    self.errors.extend(pipeline.errors)
         else:
             if len(pipeline_inputs) != len(self.pipelines):
                 raise ValueError("Output amount should match pipeline amount!")
             for pipeline_input, pipeline in zip(pipeline_inputs, self.pipelines):
                 self.update(outputs, pipeline, pipeline_input)
+        if len(self.errors) > 0:
+            raise ParsingException(self.errors)
         return outputs
 
     @staticmethod

@@ -1,4 +1,3 @@
-from django.core.files.uploadedfile import InMemoryUploadedFile
 from ..pipelines.pipeline import Pipeline
 from ..stages.image import (
     ConvertToVisionImageStage,
