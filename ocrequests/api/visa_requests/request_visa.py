@@ -10,8 +10,8 @@ from ocr import main_no_args
 from data_handling.sort_beneficiaries import passenger_been_sent
 import requests
 
-TOKEN_RE = re.compile(r'access_token=([\.\-\w]+)')
-ISO_RE = re.compile(r'(\d{2})/(\d{2})/(\d{4})')
+TOKEN_RE = re.compile(r"access_token=([\.\-\w]+)")
+ISO_RE = re.compile(r"(\d{2})/(\d{2})/(\d{4})")
 INPUT_URL = "https://api.acces-maroc.ma:443/api/api/demandeEvisa/dossierDemandeEVisa"
 PATH = "C:\\Users\\Tal Meshali\\Desktop\\Discovery Winter"
 
@@ -25,7 +25,7 @@ FIELDS = {
     "expiry_date": "",
     "arrival_date": "",
     "departure_date": "",
-    "profession": ""
+    "profession": "",
 }
 
 
@@ -46,11 +46,15 @@ def login(code):
 
 
 def create_beneficiary(isr_code, trip, token):
-    post_beneficiary_url = "https://api.acces-maroc.ma:443/api/api/conditionEvise/recherche/en"
+    post_beneficiary_url = (
+        "https://api.acces-maroc.ma:443/api/api/conditionEvise/recherche/en"
+    )
     with open("../../../templates/beneficiary_initial_request.json", "r") as f:
         beneficiary = json.load(f)
     beneficiary["dateNaissance"] = convert_date_to_iso(FIELDS["birth_date"])
-    res = requests.post(post_beneficiary_url, headers=get_header(token), json=beneficiary)
+    res = requests.post(
+        post_beneficiary_url, headers=get_header(token), json=beneficiary
+    )
     print("POST: ", res.status_code)
     current_evisa = get_demande_evisa(token)
     if not current_evisa["refsDemandeVisa"]:
@@ -84,7 +88,9 @@ def put_info_request(full_req, token):
         variable_params = f["PUT"]["VARIABLES"]
         for var_param, translated_field in variable_params.items():
             if "ISO" in translated_field:
-                var_for_req = convert_date_to_iso(FIELDS[translated_field.split("/")[0]])
+                var_for_req = convert_date_to_iso(
+                    FIELDS[translated_field.split("/")[0]]
+                )
             else:
                 var_for_req = FIELDS[translated_field]
             if "/" in var_param:
@@ -101,7 +107,7 @@ def put_info_request(full_req, token):
 
 def get_path_to_document(passenger, trip, get_json=False):
     result = {}
-    path = f'C:\\Users\\Tal Meshali\\Desktop\\Discovery Winter\\{trip}\\READY FOR VISA\\{passenger}'
+    path = f"C:\\Users\\Tal Meshali\\Desktop\\Discovery Winter\\{trip}\\READY FOR VISA\\{passenger}"
     for item in os.listdir(path):
         if get_json:
             if "json" in item:
@@ -114,7 +120,7 @@ def get_path_to_document(passenger, trip, get_json=False):
 
 
 def upload_document(path, token, change_field):
-    with open('../../../templates/blob.json', 'r') as f:
+    with open("../../../templates/blob.json", "r") as f:
         blob = json.load(f)
     for field in change_field.keys():
         if "/" in field:
@@ -127,17 +133,25 @@ def upload_document(path, token, change_field):
     photo_name = path.split("\\")[-1]
     doc_type = path.split(".")[-1]
     photo = pathlib.Path(path).read_bytes()
-    res = requests.post(upload_url, headers=get_header(token), files={
-        'attachment': ('blob', json.dumps(blob).encode(), 'application/json'),
-        'file': (photo_name, photo, 'application/pdf' if doc_type == 'pdf' else 'image/jpeg')
-    })
+    res = requests.post(
+        upload_url,
+        headers=get_header(token),
+        files={
+            "attachment": ("blob", json.dumps(blob).encode(), "application/json"),
+            "file": (
+                photo_name,
+                photo,
+                "application/pdf" if doc_type == "pdf" else "image/jpeg",
+            ),
+        },
+    )
     print(f"DOC_POST:", res.status_code)
     print(res.content)
 
 
 def get_profession():
     d1 = datetime.datetime.today()
-    d2 = datetime.datetime.strptime(FIELDS["birth_date"], '%d/%m/%Y')
+    d2 = datetime.datetime.strptime(FIELDS["birth_date"], "%d/%m/%Y")
     underage = True if (d1 - d2).days / 365 < 18 else False
     return {
         "id": 123 if underage else 55,
@@ -149,11 +163,15 @@ def get_profession():
     }
 
 
-def post_documents(full_req, token, trip, name=''):
-    beneficiary_name, beneficiary_id = '', ''
+def post_documents(full_req, token, trip, name=""):
+    beneficiary_name, beneficiary_id = "", ""
     if name:
         for req in full_req["refsDemandeVisa"]:
-            beneficiary_name = req["refInfoBeneficiairesVisa"]["nom"] + " " + req["refInfoBeneficiairesVisa"]["prenom"]
+            beneficiary_name = (
+                req["refInfoBeneficiairesVisa"]["nom"]
+                + " "
+                + req["refInfoBeneficiairesVisa"]["prenom"]
+            )
             if name == beneficiary_name:
                 beneficiary_id = req["id"]
                 break
@@ -163,20 +181,27 @@ def post_documents(full_req, token, trip, name=''):
     else:
         req = full_req["refsDemandeVisa"][-1]
         beneficiary_id = req["id"]
-        beneficiary_name = req["refInfoBeneficiairesVisa"]["nom"] + " " + req["refInfoBeneficiairesVisa"]["prenom"]
+        beneficiary_name = (
+            req["refInfoBeneficiairesVisa"]["nom"]
+            + " "
+            + req["refInfoBeneficiairesVisa"]["prenom"]
+        )
     documents = get_path_to_document(beneficiary_name, trip)
 
     for category, path in sorted(documents.items(), reverse=True):
         change_field = {
             "category/codeCategory": "295" if category == "Photo" else "296",
             "category/code": "PHT" if category == "Photo" else "PSP",
-            "description": path.split('\\')[-1],
-            "attachableId": beneficiary_id
+            "description": path.split("\\")[-1],
+            "attachableId": beneficiary_id,
         }
         upload_document(path, token, change_field)
     data = {"attachableId": beneficiary_id}
-    save = requests.put(url="https://api.acces-maroc.ma/api/api/v1/checkRequiredAttEvisa/en", headers=get_header(token),
-                        json=data)
+    save = requests.put(
+        url="https://api.acces-maroc.ma/api/api/v1/checkRequiredAttEvisa/en",
+        headers=get_header(token),
+        json=data,
+    )
     print("SAVE:", save.status_code)
 
 
@@ -192,8 +217,11 @@ def download_visas(code):
 
     visa_id_list = [item["id"] for item in dossier_info]
     visa_name_list = [
-        item["refInfoBeneficiairesVisa"]["nom"] + " " + item["refInfoBeneficiairesVisa"]["prenom"] for
-        item in dossier_info]
+        item["refInfoBeneficiairesVisa"]["nom"]
+        + " "
+        + item["refInfoBeneficiairesVisa"]["prenom"]
+        for item in dossier_info
+    ]
     payload = {}
     headers = get_header(token)
 
@@ -224,7 +252,9 @@ def download_visas(code):
                 print("Unexpected error:", res.status_code, res.content)
                 return
             print(f"{visa_name_list[i]}: Successful")
-            with open(f"C:\\Users\\Tal Meshali\\Downloads\\{visa_name_list[i]} VISA.pdf", "wb") as f:
+            with open(
+                f"C:\\Users\\Tal Meshali\\Downloads\\{visa_name_list[i]} VISA.pdf", "wb"
+            ) as f:
                 f.write(res.content)
         except Exception:
             print(f"Finished for batch {code}")
@@ -232,13 +262,15 @@ def download_visas(code):
 
 
 def get_arrival_departure_dates(date_org):
-    day, month = date_org.split('-')[0].split(".")
+    day, month = date_org.split("-")[0].split(".")
     date_arrival = datetime.date.today().replace(day=int(day), month=int(month))
     date_departure = date_arrival + datetime.timedelta(days=14)
-    FIELDS[
-        "arrival_date"] = f"{str(date_arrival.day).zfill(2)}/{str(date_arrival.month).zfill(2)}/{date_arrival.year}"
-    FIELDS[
-        "departure_date"] = f"{str(date_departure.day).zfill(2)}/{str(date_departure.month).zfill(2)}/{date_departure.year}"
+    FIELDS["arrival_date"] = (
+        f"{str(date_arrival.day).zfill(2)}/{str(date_arrival.month).zfill(2)}/{date_arrival.year}"
+    )
+    FIELDS["departure_date"] = (
+        f"{str(date_departure.day).zfill(2)}/{str(date_departure.month).zfill(2)}/{date_departure.year}"
+    )
 
 
 def parse_args():
@@ -247,61 +279,70 @@ def parse_args():
     WARNING: This function will exit the program if arguments are invalid
     :return: dictionary of arguments
     """
-    parser = argparse.ArgumentParser(description='Sort to Beneficiaries')
+    parser = argparse.ArgumentParser(description="Sort to Beneficiaries")
     parser.add_argument(
-        '-t', '--trip',
+        "-t", "--trip", type=str, required=False, help="date of the specified trip"
+    )
+    parser.add_argument(
+        "-v",
+        "--visa",
+        action="store_true",
+        required=False,
+        help="download prepared visas from given codes",
+    )
+    parser.add_argument(
+        "-o",
+        "--ocr",
+        action="store_true",
+        required=False,
+        help="run the ocr scan for each passenger in given trip",
+    )
+    parser.add_argument(
+        "-c",
+        "--code",
         type=str,
         required=False,
-        help='date of the specified trip')
-    parser.add_argument(
-        '-v', '--visa',
-        action='store_true',
-        required=False,
-        help='download prepared visas from given codes')
-    parser.add_argument(
-        '-o', '--ocr',
-        action='store_true',
-        required=False,
-        help='run the ocr scan for each passenger in given trip')
-    parser.add_argument(
-        '-c', '--code',
-        type=str,
-        required=False,
-        help='temporary code of a new request, format of XXXXXX')
+        help="temporary code of a new request, format of XXXXXX",
+    )
     return vars(parser.parse_args())
 
 
 if __name__ == "__main__":
     args = parse_args()
-    if args['visa']:
-        for code in args['code'].split(" "):
+    if args["visa"]:
+        for code in args["code"].split(" "):
             download_visas(code)
-    elif args['ocr']:
-        if args['trip'] == 'all':
-            trips = filter(lambda x: re.match(r'\d{1,2}\.\d{1,2}', x), os.listdir(PATH))
+    elif args["ocr"]:
+        if args["trip"] == "all":
+            trips = filter(lambda x: re.match(r"\d{1,2}\.\d{1,2}", x), os.listdir(PATH))
         else:
-            trips = args['trip'].split(' ')
+            trips = args["trip"].split(" ")
         for TRIP in trips:
             if "READY FOR VISA" not in os.listdir(os.path.join(PATH, TRIP)):
                 continue
             path = os.path.join(PATH, TRIP, "READY FOR VISA")
             for passenger in os.listdir(path):
-                if not passenger + " PASSPORT.json" in os.listdir(os.path.join(path, passenger)):
+                if not passenger + " PASSPORT.json" in os.listdir(
+                    os.path.join(path, passenger)
+                ):
                     try:
                         main_no_args(TRIP, passenger)
                     except ValueError as e:
                         print(f"Failed to parse {passenger} due to a value error {e}")
-                        shutil.copytree(os.path.join(path, passenger), os.path.join(PATH, TRIP, passenger),
-                                        dirs_exist_ok=True)
+                        shutil.copytree(
+                            os.path.join(path, passenger),
+                            os.path.join(PATH, TRIP, passenger),
+                            dirs_exist_ok=True,
+                        )
                         shutil.rmtree(os.path.join(path, passenger))
     else:
-        if args['trip'] == 'all':
-            trips = filter(lambda x: re.match(r'\d{1,2}\.\d{1,2}', x), os.listdir(PATH))
+        if args["trip"] == "all":
+            trips = filter(lambda x: re.match(r"\d{1,2}\.\d{1,2}", x), os.listdir(PATH))
         else:
-            trips = args['trip'].split(' ')
+            trips = args["trip"].split(" ")
         for TRIP in trips:
-            TRIP = TRIP.replace('\'', '')
-            ISR = args['code']
+            TRIP = TRIP.replace("'", "")
+            ISR = args["code"]
             if "READY FOR VISA" not in os.listdir(os.path.join(PATH, TRIP)):
                 continue
             path = os.path.join(PATH, TRIP, "READY FOR VISA")
@@ -309,7 +350,7 @@ if __name__ == "__main__":
             get_arrival_departure_dates(TRIP)
             for passenger in os.listdir(path):
                 path_to_json = get_path_to_document(passenger, TRIP, get_json=True)
-                with open(path_to_json, 'r') as f:
+                with open(path_to_json, "r") as f:
                     f = json.load(f)
                     for key, value in f.items():
                         FIELDS[key] = value

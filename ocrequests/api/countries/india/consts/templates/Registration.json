@@ -1,0 +1,54 @@
+{
+  "CONSTS": {
+    "appl.nationality": "ISR",
+    "evisa_purpose": 251,
+    "evisa_purpose_3": 251,
+    "evisa_purpose_31": 251,
+    "evisa_purpose_32": 251,
+    "appl.ppt_type_id": 1,
+    "submit_registration": "Continue",
+    "appl.visa_type_id": 3
+  },
+  "VARIABLES": {
+    "appl.birthdate": "birth_date",
+    "appl.email": "mail_address",
+    "appl.email_re": "mail_address",
+    "appl.journeydate": "arrival_date",
+    "evisa_service": {
+      "3": "30 Days",
+      "31": "1 Year",
+      "32": "5 Years"
+    },
+    "appl.missioncode": {
+      "I022": "AHMEDABAD AIRPORT",
+      "I032": "AMRITSAR AIRPORT",
+      "I096": "BAGDOGRA AIRPORT",
+      "I085": "BENGALURU AIRPORT",
+      "I084": "BHUBANESHWAR AIRPORT",
+      "I010": "CALICUT AIRPORT",
+      "I005": "CHANDIGARH AIRPORT",
+      "I008": "CHENNAI AIRPORT",
+      "I024": "COCHIN AIRPORT",
+      "I094": "COIMBATORE AIRPORT",
+      "I004": "DELHI AIRPORT",
+      "I012": "GAYA AIRPORT",
+      "I019": "GUWAHATI AIRPORT",
+      "I041": "HYDERABAD AIRPORT",
+      "I017": "INDORE AIRPORT",
+      "I006": "JAIPUR AIRPORT",
+      "I030": "KANNUR AIRPORT",
+      "I002": "KOLKATA AIRPORT",
+      "I021": "LUCKNOW AIRPORT",
+      "I015": "MADURAI AIRPORT",
+      "I092": "MANGALORE AIRPORT",
+      "I001": "MUMBAI AIRPORT",
+      "I016": "NAGPUR AIRPORT",
+      "I077": "PORTBLAIR AIRPORT",
+      "I026": "PUNE AIRPORT",
+      "I003": "TIRUCHIRAPALLI AIRPORT",
+      "I023": "TRIVANDRUM AIRPORT",
+      "I007": "VARANASI AIRPORT",
+      "I025": "VISHAKHAPATNAM AIRPORT"
+    }
+  }
+}

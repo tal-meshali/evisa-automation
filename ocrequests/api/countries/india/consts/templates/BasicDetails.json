@@ -1,0 +1,29 @@
+{
+  "CONSTS": {
+    "appl.passport_issue_place": "ISRAEL",
+    "submit_btn": "Save and Continue",
+    "appl.religionOther": "",
+    "appl.visual_mark": "NA",
+    "appl.nationality": "ISR",
+    "appl.nic_no": "NA",
+    "appl.refer_flag": "Y",
+    "appl.oth_ppt": "NO"
+  },
+  "VARIABLES": {
+    "appl.surname": "last_name",
+    "appl.applname": "first_name",
+    "appl.prev_surname": "",
+    "appl.prev_given_name": "",
+    "appl.applsex": "gender",
+    "appl.birthdate": "birth_date",
+    "appl.country_of_birth": "birth_place",
+    "appl.passport_issue_date": "issue_date",
+    "appl.passport_expiry_date": "expiry_date",
+    "appl.passport_number": "passport_number"
+  },
+  "appl.edu_id": ["GRADUATE", "ACADEMIC", "OTHER"],
+  "appl.placbrth": "CITY",
+  "appl.religion": ["JUDAISM", "CHRISTIANITY", "ISLAM", "NO RELIGION / OTHER"],
+  "appl.nationality_by": "BY BIRTH",
+  "appl.prev_nationality": ""
+}

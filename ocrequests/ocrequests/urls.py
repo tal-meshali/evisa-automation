@@ -16,24 +16,26 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from api import views
 from rest_framework import routers
 from django.conf import settings
 from django.conf.urls.static import static
+from social_django import urls
 
-router = routers.DefaultRouter()
-router.register(r"batches", views.BatchViewSet)
-router.register(r"beneficiaries", views.BeneficiaryViewSet)
-router.register(
-    r"beneficiaries/(?P<beneficiary_id>[^/.]+)/portraits", views.PortraitViewSet
-)
-router.register(
-    r"beneficiaries/(?P<beneficiary_id>[^/.]+)/passports", views.PassportViewSet
-)
+# router = routers.DefaultRouter()
+# router.register(r"batches", views.BatchViewSet)
+# router.register(r"beneficiaries", views.BeneficiaryViewSet)
+# router.register(
+#     r"beneficiaries/(?P<beneficiary_id>[^/.]+)/portraits", views.PortraitViewSet
+# )
+# router.register(
+#     r"beneficiaries/(?P<beneficiary_id>[^/.]+)/passports", views.PassportViewSet
+# )
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
-    path("", include(router.urls)),
+    path(r"", include("api.views.batches.urls")),
+    re_path("", include("drf_social_oauth2.urls", namespace="drf")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
